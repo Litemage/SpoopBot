@@ -22,8 +22,7 @@ RobotContainer::RobotContainer()
       [this]{
         //make a point to explain what the cast is doing.
         //TODO see if we need to invert the axis input at all
-        //TODO write this more efficiently
-        double c_leftY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kLeftY)), thresh);
+        double c_leftY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kLeftY)) * -1, thresh);
         double c_rightX = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightX)), thresh);
 
         m_drive.ArcadeDrive(c_leftY + c_rightX, c_leftY - c_rightX);
