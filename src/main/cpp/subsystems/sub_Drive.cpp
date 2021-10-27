@@ -10,7 +10,7 @@ sub_Drive::sub_Drive(const int leftID, const int rightID)
 
 }
 
-void sub_Drive::ArcadeDrive(const double left, const double right){
+void sub_Drive::DriveMotors(const double left, const double right){
   m_left.Set(ControlMode::PercentOutput, left);
   m_right.Set(ControlMode::PercentOutput, right);
 }

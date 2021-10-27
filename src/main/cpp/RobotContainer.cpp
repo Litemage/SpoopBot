@@ -9,6 +9,7 @@
 //globals
 //note: use const expr for globals in the future.
 constexpr double thresh = 0.2;
+constexpr bool isTankDrive = false;
 
 RobotContainer::RobotContainer()
 : m_drive{2, 1}
@@ -24,8 +25,13 @@ RobotContainer::RobotContainer()
         //TODO see if we need to invert the axis input at all
         double c_leftY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kLeftY)) * -1, thresh);
         double c_rightX = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightX)), thresh);
+        double c_rightY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightY)), thresh);
 
-        m_drive.ArcadeDrive(c_leftY + c_rightX, c_leftY - c_rightX);
+        //call our drive function
+        if(isTankDrive)
+          m_drive.DriveMotors(c_leftY, c_rightY);
+        else
+          m_drive.DriveMotors(c_leftY + c_rightX, c_leftY - c_rightX);
 
   }, {&m_drive}));
 

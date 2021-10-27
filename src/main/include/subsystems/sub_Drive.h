@@ -11,7 +11,7 @@ class sub_Drive : public frc2::SubsystemBase {
  public:
   sub_Drive(const int leftID, const int rightID);
 
-  void ArcadeDrive(double left, double right);
+  void DriveMotors(double left, double right);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
