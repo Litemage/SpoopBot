@@ -17,7 +17,7 @@ RobotContainer::RobotContainer()
 
   //set our default command (default commands basically run on start on the program)
   //setDefaultCommand() function is located in the subsystem class
-  //take the parameters: (command, required subsystems) required subsystems can be in the form of an init list.
+  //take the parameters: (command, required ssubsystems) required subsystems can be in the form of an init list.
   m_drive.SetDefaultCommand(
     frc2::RunCommand(
       [this]{
