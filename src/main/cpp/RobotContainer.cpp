@@ -25,6 +25,7 @@ RobotContainer::RobotContainer()
         //TODO see if we need to invert the axis input at all
         double c_leftY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kLeftY)) * -1, thresh);
         double c_rightX = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightX)), thresh);
+        //need inverted?
         double c_rightY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightY)), thresh);
 
         //call our drive function
