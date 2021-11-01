@@ -10,10 +10,14 @@
 //note: use const expr for globals in the future.
 constexpr double thresh = 0.2;
 constexpr bool isTankDrive = false;
+constexpr int winchPort = NULL;
+constexpr int intakePort = NULL;
 
 RobotContainer::RobotContainer()
 : m_drive{2, 1}
-, m_controller{0}{
+, m_controller{0}
+, m_winch{winchPort}
+, m_intake{intakePort}{
 
   //set our default command (default commands basically run on start on the program)
   //setDefaultCommand() function is located in the subsystem class
@@ -25,14 +29,8 @@ RobotContainer::RobotContainer()
         //TODO see if we need to invert the axis input at all
         double c_leftY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kLeftY)) * -1, thresh);
         double c_rightX = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightX)), thresh);
-        //need inverted?
-        double c_rightY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightY)), thresh);
-
-        //call our drive function
-        if(isTankDrive)
-          m_drive.DriveMotors(c_leftY, c_rightY);
-        else
-          m_drive.DriveMotors(c_leftY + c_rightX, c_leftY - c_rightX);
+        //drive function
+        m_drive.DriveMotors(c_leftY + c_rightX, c_leftY - c_rightX);
 
   }, {&m_drive}));
 

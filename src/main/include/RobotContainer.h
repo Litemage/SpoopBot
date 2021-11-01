@@ -10,6 +10,8 @@
 #include <frc/XboxController.h>
 //include our subsystem
 #include "subsystems/sub_Drive.h"
+#include "subsystems/sub_intake.h"
+#include "subsystems/sub_winch.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -29,6 +31,8 @@ class RobotContainer {
   //declare the robot class
   frc::XboxController m_controller;
   sub_Drive m_drive;
+  sub_intake m_intake;
+  sub_winch m_winch;
   void ConfigureButtonBindings();
   //my input filtiring function
   static double deadband(const double input, const double threshold);
