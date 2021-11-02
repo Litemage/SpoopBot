@@ -10,6 +10,8 @@
 //note: use const expr for globals in the future.
 constexpr double thresh = 0.2;
 constexpr bool isTankDrive = false;
+
+//TODO change these to the port values
 constexpr int winchPort = NULL;
 constexpr int intakePort = NULL;
 
@@ -31,6 +33,9 @@ RobotContainer::RobotContainer()
         double c_rightX = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightX)), thresh);
         //drive function
         m_drive.DriveMotors(c_leftY + c_rightX, c_leftY - c_rightX);
+
+        frc::SmartDashboard::PutNumber("joy_leftY", c_leftY);
+        frc::SmartDashboard::PutNumber("joy_rightX", c_rightX);
 
   }, {&m_drive}));
 
