@@ -7,7 +7,7 @@
 sub_Drive::sub_Drive(const int leftID, const int rightID)
 : m_left(leftID)
 , m_right(rightID) {
-
+  m_left.SetInverted(true);
 }
 
 void sub_Drive::DriveMotors(const double left, const double right){
