@@ -10,5 +10,9 @@ sub_intake::sub_intake(const int motorID)
 
 }
 
+void sub_intake::DriveIntake(const double value){
+  m_inMotor.Set(ControlMode::PercentOutput, value);
+}
+
 // This method will be called once per scheduler run
 void sub_intake::Periodic() {}

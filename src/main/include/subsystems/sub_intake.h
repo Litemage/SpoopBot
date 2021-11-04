@@ -10,6 +10,7 @@
 class sub_intake : public frc2::SubsystemBase {
  public:
   sub_intake(const int motorID);
+  void DriveIntake(const double value);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

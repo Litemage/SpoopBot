@@ -10,6 +10,7 @@
 class sub_winch : public frc2::SubsystemBase {
  public:
   sub_winch(const int motorID);
+  void DriveWinch(const double value);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -20,4 +21,6 @@ class sub_winch : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   TalonSRX m_winchMotor;
+  //functions
+
 };

@@ -13,8 +13,11 @@ constexpr bool isTankDrive = false;
 constexpr double sensitivitiyModifier = 0.5;
 
 //TODO change these to the port values
-constexpr int winchPort = NULL;
-constexpr int intakePort = NULL;
+constexpr int winchPort = 4;
+constexpr int intakePort = 3;
+
+constexpr double winchSpeed = 0.2;
+constexpr double intakeSpeed = 1;
 
 RobotContainer::RobotContainer()
 : m_drive{2, 1}
@@ -32,10 +35,16 @@ RobotContainer::RobotContainer()
         //TODO see if we need to invert the axis input at all
         double c_leftY = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kLeftY)) * -1, thresh);
         double c_rightX = deadband(m_controller.GetRawAxis(static_cast<int>(frc::XboxController::Axis::kRightX)), thresh);
-        bool c_xButton = m_controller.GetRawButton(static_cast<int>(frc::XboxController::Button::kBumperRight));
+        bool c_rightBumper = m_controller.GetRawButton(static_cast<int>(frc::XboxController::Button::kBumperRight));
+
+        //xyab buttons
+        bool c_X = m_controller.GetXButton();
+        bool c_Y = m_controller.GetYButton();
+        bool c_A = m_controller.GetAButton();
+        bool c_B = m_controller.GetBButton();
 
         //sensitivity modifier
-        if(!c_xButton){
+        if(!c_rightBumper){
           c_leftY*=sensitivitiyModifier;
           c_rightX*=sensitivitiyModifier;
         }
@@ -43,9 +52,32 @@ RobotContainer::RobotContainer()
         //drive function
         m_drive.DriveMotors(c_leftY + c_rightX, c_leftY - c_rightX);
 
-        frc::SmartDashboard::PutBoolean("c_xButton", c_xButton);
+        //winch logic
+        if (c_Y){
+          m_winch.DriveWinch(winchSpeed);
+        } else if (c_A){
+          m_winch.DriveWinch(-winchSpeed);
+        } else {
+          m_winch.DriveWinch(0);
+        }
+
+        //winch logic
+        if (c_X){
+          m_intake.DriveIntake(-intakeSpeed);
+        } else if (c_B){
+          m_intake.DriveIntake(intakeSpeed);
+        } else {
+          m_intake.DriveIntake(0);
+        }
+
+        //debugging stuff
+        frc::SmartDashboard::PutBoolean("c_rightBumper", c_rightBumper);
         frc::SmartDashboard::PutNumber("c_leftY", c_leftY);
         frc::SmartDashboard::PutNumber("c_rightX", c_rightX);
+        frc::SmartDashboard::PutNumber("c_X", c_X);
+        frc::SmartDashboard::PutNumber("c_Y", c_Y);
+        frc::SmartDashboard::PutNumber("c_A", c_A);
+        frc::SmartDashboard::PutNumber("c_B", c_B);
 
   }, {&m_drive}));
 

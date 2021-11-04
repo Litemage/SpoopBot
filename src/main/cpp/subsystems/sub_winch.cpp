@@ -9,5 +9,9 @@ sub_winch::sub_winch(const int motorID)
 
 }
 
+void sub_winch::DriveWinch(const double value){
+  m_winchMotor.Set(ControlMode::PercentOutput, value);
+}
+
 // This method will be called once per scheduler run
 void sub_winch::Periodic() {}
