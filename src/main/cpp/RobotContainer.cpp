@@ -10,7 +10,7 @@
 //note: use const expr for globals in the future.
 constexpr double thresh = 0.2;
 constexpr bool isTankDrive = false;
-constexpr double sensitivitiyModifier = 0.5;
+constexpr double sensitivitiyModifier = 0.45;
 
 //TODO change these to the port values
 constexpr int winchPort = 4;
