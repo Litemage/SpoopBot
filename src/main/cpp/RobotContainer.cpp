@@ -38,10 +38,10 @@ RobotContainer::RobotContainer()
         bool c_rightBumper = m_controller.GetRawButton(static_cast<int>(frc::XboxController::Button::kBumperRight));
 
         //xyab buttons
-        bool c_X = m_controller.GetXButton();
+        bool c_BUMPERLEFT = m_controller.GetRawButton(static_cast<int>(frc::XboxController::Button::kBumperLeft));
         bool c_Y = m_controller.GetYButton();
         bool c_A = m_controller.GetAButton();
-        bool c_B = m_controller.GetBButton();
+        bool c_leftJoyButton = m_controller.GetRawButton(static_cast<int>(frc::XboxController::Button::kStickLeft));
 
         //sensitivity modifier
         if(!c_rightBumper){
@@ -61,11 +61,11 @@ RobotContainer::RobotContainer()
           m_winch.DriveWinch(0);
         }
 
-        //winch logic
-        if (c_X){
-          m_intake.DriveIntake(-intakeSpeed);
-        } else if (c_B){
+        //intake Logic
+        if (c_leftJoyButton){
           m_intake.DriveIntake(intakeSpeed);
+        } else if (c_BUMPERLEFT){
+          m_intake.DriveIntake(-intakeSpeed);
         } else {
           m_intake.DriveIntake(0);
         }
@@ -74,10 +74,9 @@ RobotContainer::RobotContainer()
         frc::SmartDashboard::PutBoolean("c_rightBumper", c_rightBumper);
         frc::SmartDashboard::PutNumber("c_leftY", c_leftY);
         frc::SmartDashboard::PutNumber("c_rightX", c_rightX);
-        frc::SmartDashboard::PutNumber("c_X", c_X);
+        frc::SmartDashboard::PutNumber("c_BUMPERLEFT", c_BUMPERLEFT);
         frc::SmartDashboard::PutNumber("c_Y", c_Y);
         frc::SmartDashboard::PutNumber("c_A", c_A);
-        frc::SmartDashboard::PutNumber("c_B", c_B);
 
   }, {&m_drive}));
 
